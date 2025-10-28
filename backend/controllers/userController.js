@@ -39,10 +39,17 @@ const signup = async (req, res) => {
     if (await Users.findOne({ email })) {
       return res.json("Email already in use...");
     }
+
     const user = new Users({ username, email, password: hashpsrwd });
     await user.save();
+    const token=jwt.sign(
+          {
+            email:user.email
+          },process.env.JWT_SECRET_KEY,//secret key
+          {expiresIn: '1w'}//hr/w/d/m
+        )
     console.log("User added:", req.body);
-    res.status(201).json("User saved successfully");
+    res.status(201).json({message:"User saved successfully",token});
   } catch (err) {
     console.error("Error saving user:", err);
     res.status(500).json("Error saving user");
