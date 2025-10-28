@@ -6,6 +6,7 @@ const authenticateToken = (req, res, next) => {
 
   if (!token) {
     return res.status(401).json({ message: "No token provided" });
+    
   }
   try {
     const verifiedUser = jwt.verify(token, process.env.JWT_SECRET_KEY);
