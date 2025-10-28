@@ -1,0 +1,55 @@
+const Users = require("../models/userModel");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await Users.findOne({ email });
+    if (user) {
+      const pswrdok = await bcrypt.compare(password, user.password);
+      if (pswrdok) {
+
+        const token=jwt.sign(
+          {
+            email:user.email
+          },'68da81c5fb39d67b35162064e32edf0e5b4ec1785d4a1e3bafa3e3e78b992311',//secret key
+          {expiresIn: '1w'}//hr/w/d/m
+        )
+
+        console.log("User logged in:", email);
+        res.status(200).json({message:"Login successful",token});
+      } else {
+        return res.status(400).json("Incorrect password");
+      }
+    }else{
+      return res.status(400).json("User not found");
+    }
+  } catch (err) {
+    console.error("Error during login:", err);
+    res.status(500).send("Error during login");
+  }
+};
+
+const signup = async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+    const hashpsrwd = await bcrypt.hash(password, 10);
+    if (await Users.findOne({ email })) {
+      return res.json("Email already in use...");
+    }
+    const user = new Users({ username, email, password: hashpsrwd });
+    await user.save();
+    console.log("User added:", req.body);
+    res.status(201).json("User saved successfully");
+  } catch (err) {
+    console.error("Error saving user:", err);
+    res.status(500).json("Error saving user");
+  }
+};
+
+module.exports = {
+  signup,
+  login,
+};
