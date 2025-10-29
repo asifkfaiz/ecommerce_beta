@@ -8,6 +8,10 @@ const productSchema=new mongoose.Schema({
     productDesc:{
         type:String
     },
+    productImg:{
+        type:String,
+        required:true
+    },
     productPrice:{
         type:String,
         required:true,
