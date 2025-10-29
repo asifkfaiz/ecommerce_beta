@@ -9,19 +9,21 @@ const addProduct = async (req, res) => {
       productStock,
       productCategory,
     } = req.body;
+    const productImage = req.file.path;
     const product = new Products({
       productName,
       productDesc,
       productPrice,
       productStock,
       productCategory,
+      productImage,
     });
     await product.save();
-    console.log("Product added:", req.body);
+    console.log("Product added:", product);
     res.status(201).send("Product added successfully");
   } catch (err) {
     console.error("Error during product adding:", err);
-    res.status(500).send("Error product adding");
+    res.status(500).send(err.message);
   }
 };
 

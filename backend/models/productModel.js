@@ -3,18 +3,18 @@ const mongoose=require('mongoose')
 const productSchema=new mongoose.Schema({
     productName:{
         type:String,
-        required:true,
+        // required:true,
     },
     productDesc:{
         type:String
     },
-    productImg:{
+    productImage:{
         type:String,
         required:true
     },
     productPrice:{
         type:String,
-        required:true,
+        // required:true,
         trim:true
     },
     productStock:{
