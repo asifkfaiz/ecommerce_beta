@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { login } from "../api/userAuth";
 import "../styles/login.css";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -11,7 +12,7 @@ function Login() {
     password: "",
   });
   const [message, setMessage] = useState("");
-
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -21,9 +22,11 @@ function Login() {
 
     try {
       const response = await login(formData);
-
-      setMessage(response.data.message);
+      console.log(response.data.message);
+      
+      // setMessage(response.data.message);
       localStorage.setItem("token", response.data.token);
+      navigate("/home");
     } catch (error) {
       setMessage(error.response?.data?.message || "Something went wrong");
     }

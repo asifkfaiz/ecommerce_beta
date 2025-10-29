@@ -1,9 +1,8 @@
-import React from "react";
-import axios from 'axios'
-import { Link,Routes,Route} from 'react-router-dom'
-import {useState} from 'react'
-import {signup} from "../api/userAuth";
-import '../styles/signup.css'
+import { Link, Routes, Route } from "react-router-dom";
+import { useState } from "react";
+import { signup } from "../api/userAuth";
+import "../styles/signup.css";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -11,30 +10,30 @@ function Signup() {
     email: "",
     password: "",
   });
-    
 
-const [message,setMessage]=useState("")
+  const navigate=useNavigate()
+  const [message, setMessage] = useState("");
 
-const handleChange=(e)=>{
-    setFormData({...formData,[e.target.name]: e.target.value});
-};
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-const handleSubmit=async(e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try{
-      
-        const response=await signup(formData);
-      console.log(response.data);
-      
-        setMessage(response.data);
-    } catch(error){
-      // console.log(error.message);
-      
-        setMessage(error.response?.data || "Something went wrong");
-    }
+    try {
+      const response = await signup(formData);
+      console.log(response.data.message);
 
-};
+      setMessage(response.data.message);
+      localStorage.setItem("token", response.data.token);
+      navigate("/home"); 
+    } catch (error) {
+      // console.log(error.message);
+
+      setMessage(error.response?.data?.message || "Something went wrong");
+    }
+  };
 
   return (
     <>
@@ -70,7 +69,7 @@ const handleSubmit=async(e)=>{
         <button type="submit">Sign up</button>
       </form>
       {message && <p>{message}</p>}
-      <Link to={'/login'}>Login</Link>
+      <Link to={"/login"}>Login</Link>
     </>
   );
 }
