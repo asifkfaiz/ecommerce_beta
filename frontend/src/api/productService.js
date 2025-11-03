@@ -1,11 +1,12 @@
-const BASE_URL = "http://localhost:6969";
+import api from "./axios";
 
-export const getProducts = async () => {
-  try {
-    const res = await fetch(`${BASE_URL}/products`);
-    return await res.json();
-  } catch (err) {
-    console.error(err);
-    throw err;
-  }
-};
+export const addProduct = (formData) =>
+  api.post("/addProduct", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+
+
+export const getProducts = () => api.get("/products/getProducts");
+
+
+export const getProductById = (id) => api.get(`/productDetail/${id}`);
