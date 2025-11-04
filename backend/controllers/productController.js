@@ -20,10 +20,9 @@ const addProduct = async (req, res) => {
     });
     await product.save();
     console.log("Product added:", product);
-    res.status(201).send("Product added successfully");
+    res.status(200).json({ message: "Product added" });
   } catch (err) {
-    console.error("Error during product adding:", err);
-    res.status(500).send(err.message);
+    res.status(404).json({ message: "No products found in this category" });
   }
 };
 

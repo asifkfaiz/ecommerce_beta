@@ -1,9 +1,7 @@
 import api from "./axios";
 
 export const addProduct = (formData) =>
-  api.post("/addProduct", formData, {
-    headers: { "Content-Type": "multipart/form-data" },
-  });
+  api.post("/products/addProduct", formData);
 
 
 export const getProducts = () => api.get("/products/getProducts");

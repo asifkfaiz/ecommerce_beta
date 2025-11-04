@@ -10,7 +10,7 @@ const Home = () => {
     const fetchProducts = async () => {
       try {
         const res = await getProducts();
-        console.log(res.data);
+        // console.log(res.data);
         
         setProducts(res.data);
       } catch (err) {
