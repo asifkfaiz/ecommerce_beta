@@ -1,12 +1,13 @@
-const express=require('express')
+import express from 'express'
+import {signup,login} from '../controllers/userController.js'
 const userRoutes=express.Router()
-// const auth=require('../middleware/userAuth')
-const userController=require('../controllers/userController')
-
-userRoutes.post('/signup',userController.signup)
-userRoutes.post('/login',userController.login)
 
 
-module.exports=userRoutes
+userRoutes.post('/signup',signup)
+userRoutes.post('/login',login)
+
+
+// module.exports=userRoutes
+export default userRoutes
 
 

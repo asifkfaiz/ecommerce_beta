@@ -1,4 +1,4 @@
-const Products = require("../models/productModel");
+import Products from "../models/productModel.js";
 
 const addProduct = async (req, res) => {
   try {
@@ -84,7 +84,7 @@ const filterByCategory = async (req, res) => {
   }
 };
 
-module.exports = {
+export {
   addProduct,
   getAllProducts,
   productDetails,

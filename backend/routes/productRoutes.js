@@ -1,7 +1,10 @@
-const express=require('express')
-const auth=require('../middleware/userAuth')
-const upload=require('../middleware/uploadImage')
-const productController=require('../controllers/productController')
+// const express=require('express')
+// const auth=require('../middleware/userAuth')
+// const upload=require('../middleware/uploadImage')
+// const productController=require('../controllers/productController')
+import express from 'express'
+import upload from '../middleware/uploadImage.js'
+import * as productController from '../controllers/productController.js'
 
 const productRoutes=express.Router()
 
@@ -12,4 +15,4 @@ productRoutes.get('/getProductsByCategory/:category',productController.getProduc
 productRoutes.get('/filterByCategory',productController.filterByCategory)
 productRoutes.get('/productDetail/:id',productController.productDetails)
 
-module.exports=productRoutes
+export default productRoutes
