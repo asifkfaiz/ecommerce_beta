@@ -3,6 +3,7 @@ import { addProduct } from "../api/productService";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
 function AddProduct() {
   const [product, setProduct] = useState({
     productName: "",
